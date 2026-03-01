@@ -1,4 +1,3 @@
-cat > README.md <<'EOF'
 # Doragon Framework
  
 > Powered by Hitsukaya
