@@ -9,7 +9,7 @@
 
 Doragon Framework is a lightweight, self-hosted deployment and security framework for Linux VPS servers.
 
-It provides a deterministic CLI-based security orchestration layer designed for **AlmaLinux systems**, enforcing layered security controls using native Linux mechanisms such as:
+It provides a deterministic CLI-based security orchestration layer designed primarily for RHEL-like Linux systems, enforcing layered security controls using native Linux mechanisms such as:
 
 - SELinux
 - firewalld
@@ -18,6 +18,42 @@ It provides a deterministic CLI-based security orchestration layer designed for 
 - systemd services
 
 Doragon focuses on **minimal overhead**, **predictable behavior**, and **transparent system security auditing**.
+
+---
+
+## Architecture
+
+```text
+                ┌──────────────────────────────┐
+                │         Doragon CLI          │
+                │       /usr/bin/doragon       │
+                └──────────────┬───────────────┘
+                               │
+                               │
+                ┌──────────────▼───────────────┐
+                │         Doragon Core         │
+                │   command routing + modules  │
+                └──────────────┬───────────────┘
+                               │
+        ┌──────────────────────┼──────────────────────┬──────────────────────┐
+        │                      │                      │                      │
+ ┌──────▼────────┐    ┌────────▼────────┐    ┌────────▼────────┐    ┌────────▼───────┐
+ │   Security    │    │    Services     │    │     Network     │    │   Reporting    │
+ │               │    │                 │    │                 │    │                │
+ │ • SELinux     │    │ • nginx         │    │ • firewall      │    │ • status       │
+ │ • Fail2Ban    │    │ • php-fpm       │    │ • ports         │    │ • report       │
+ │ • SSH         │    │ • mariadb       │    │ • connectivity  │    │ • scoring      │
+ │ • SFTP        │    │ • redis         │    │                 │    │                │
+ └───────────────┘    └─────────────────┘    └─────────────────┘    └────────────────┘
+                               │
+                               │
+                ┌──────────────▼───────────────┐
+                │         System Layer         │
+                │   RHEL-like Linux systems    │
+                │   Planned support: FreeBSD   │
+                └──────────────────────────────┘
+
+
 
 ---
 
