@@ -259,3 +259,22 @@ MIT License
 Doragon Framework is developed under the **Hitsukaya** ecosystem.
 
 https://hitsukaya.com
+
+
+---
+
+## Production testing
+
+Doragon has been running on a production VPS since February 2026,
+supporting a multi-site environment with several web applications.
+
+This real-world deployment helps validate:
+
+- service detection
+- security auditing
+- Fail2Ban integration
+- SELinux inspection
+- system health reporting
+
+Continuous updates are tested directly on a live environment,
+ensuring the framework behaves correctly under real workloads.
