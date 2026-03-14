@@ -13,6 +13,7 @@ doragon_calculate_security_score() {
   [[ "$(check_phpfpm)" == "WARN" ]] && warn_count=$((warn_count+1))
   [[ "$(check_phpfpm_socket)" == "WARN" ]] && warn_count=$((warn_count+1))
   [[ "$(check_redis_local_only)" == "WARN" ]] && warn_count=$((warn_count+1))
+  [[ "$(check_tls)" == "WARN" ]] && warn_count=$((warn_count+1))
 
   mariadb_public_listen && warn_count=$((warn_count+1))
   postgres_public_listen_65499 && warn_count=$((warn_count+1))

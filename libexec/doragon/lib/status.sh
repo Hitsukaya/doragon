@@ -2,22 +2,11 @@
 set -euo pipefail
 
 doragon_status() {
-  local warn_count=0
-  local fail_count=0
-  local os_ok=1
-
   section "STATUS"
   ok "Uptime: $(uptime_days) days"
   ok "Load Avg (1/5/15): $(loadavg_short)"
   ok "Disk /: $(rootfs_usage_line)"
   ok "Memory: $(mem_usage_line)"
-
-  if [[ "$(swap_status)" == "OK" ]]; then
-    ok "Swap: $(swap_line)"
-  else
-    warn "Swap: $(swap_line)"
-    warn_count=$((warn_count+1))
-  fi
 
   # Audit System
   doragon_audit_system
@@ -31,6 +20,8 @@ doragon_status() {
   # Audit SSH
   doragon_audit_ssh
 
+  # Audit TLS
+  doragon_audit_tls
 
 IFS='|' read -r security_score score_status exit_code warn_count fail_count \
   < <(doragon_calculate_security_score)

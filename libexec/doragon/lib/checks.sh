@@ -33,6 +33,42 @@ fail2ban_jails_count() {
       }' || echo "0"
 }
 
+detect_tls_ports_config() {
+    nginx -T 2>/dev/null | awk '
+        $1 == "listen" && $0 ~ /ssl/ {
+            token=$2
+            gsub(/;/, "", token)
+
+            if (token ~ /^\[.*\]:[0-9]+$/) {
+                sub(/^.*:/, "", token)
+                print token
+            } else if (token ~ /^[0-9]+$/) {
+                print token
+            } else if (token ~ /:[0-9]+$/) {
+                sub(/^.*:/, "", token)
+                print token
+            }
+        }
+    ' | sort -u
+}
+
+check_tls() {
+    local tls_ports nginx_config
+    tls_ports="$(detect_tls_ports_config)"
+    nginx_config="$(nginx -T 2>/dev/null)"
+
+    [[ -z "$tls_ports" ]] && {
+        echo "WARN"
+        return
+    }
+
+    if  grep -q 'ssl_certificate' <<< "$nginx_config"; then
+        echo "OK"
+    else
+        echo "WARN"
+    fi
+}
+
 
 detect_sshd_port_config() {
   # Returns first configured Port from effective sshd config.
@@ -59,7 +95,7 @@ detect_sshd_ports_runtime() {
   # Output can be empty if sshd not running.
   ss -tulnp 2>/dev/null | awk '
     $1=="tcp" && $2=="LISTEN" && $NF ~ /"sshd"/ {
-      # local address in column 5: 0.0.0.0:2607 or [::]:2607
+      # local address in column 5: 0.0.0.0:2607 or [::]:223
       gsub(/^\[/,"",$5); gsub(/\]$/,"",$5);
       n=split($5,a,":");
       print a[n];

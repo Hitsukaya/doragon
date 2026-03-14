@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented here.
 
+## Doragon v1.0.7
+
+---
+
+## Doragon  v1.0.6
+
+This release improves the integrated audit engine, status output, and reporting workflow.
+
+### Added
+- Security score engine
+- Visual security score bar
+- Security grade system (`SS`, `A+`, `A`, `B+`, `B`, `C`, `D`, `F`)
+- Security assessment messages
+- Top Issues detection
+- Next Actions recommendations
+- Shared audit module: `audit/security_score.sh`
+
+### Improved
+- SSH audit is now integrated into `doragon status`
+- Status output is more structured and easier to read
+- Security score is now reused by both status and report flows
+- Report JSON structure is better aligned for future panel integration
+
+### Reporting
+- `doragon report --json`
+- `doragon report --json --pretty`
+- `doragon report --out <dir>`
+- automatic output directory creation
+
+### Output example
+```text
+SECURITY SCORE
+Score: ███████████████████░ 95/100
+Grade: A
+Status: WARN
+Assessment: Strong security baseline with minor adjustments recommended.
+
+
 ---
 
 ## v1.0.5

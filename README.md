@@ -23,7 +23,7 @@ It provides a deterministic CLI-based security orchestration layer designed prim
 - SSH hardening
 - systemd services
 
-## v1.0.6 – Security Audit Improvements
+## v1.0.7 – Security Audit Improvements
 
 This release introduces a major improvement to the integrated security audit and status output.
 

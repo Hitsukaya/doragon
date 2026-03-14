@@ -38,7 +38,7 @@ doragon_audit_ssh() {
   ports_runtime="$(detect_sshd_ports_runtime | paste -sd, -)"
   [[ -z "$ports_runtime" ]] && ports_runtime="?"
 
-  section "SSH AUDIT"
+  section "SSH"
   info "Ports (runtime): ${ports_runtime}"
   info "Context user: ${ctx_user}"
   echo

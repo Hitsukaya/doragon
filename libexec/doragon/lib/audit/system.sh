@@ -1,12 +1,10 @@
 doragon_audit_system(){
-
   section "SYSTEM"
-
   local os_ok=1
   if is_almalinux_9; then
     ok "OS Detected: $(detect_os_pretty)"
   else
-    fail "OS Detected: $(detect_os_pretty) (supported: AlmaLinux 9.x)"
+    fail "OS Detected: $(detect_os_pretty) (supported: RHEL / AlmaLinux 9.x / Planned support FreeBSD)"
     os_ok=0
   fi
 
@@ -19,8 +17,8 @@ doragon_audit_system(){
   esac
 
   case "$(check_firewalld)" in
-    OK) ok "firewalld: running" ;;
-    *)  fail "firewalld: NOT running" ;;
+    OK) ok "Firewalld: running" ;;
+    *)  fail "Firewalld: NOT running" ;;
   esac
 
   local jails
@@ -35,7 +33,20 @@ doragon_audit_system(){
      ok "$ssh"
   else
      warn "$ssh"
-     warn_count=$((warn_count+1))
+  fi
+
+  local tls
+  local tls_ports
+  tls_ports="$(detect_tls_ports_config | paste -sd ',' -)"
+  case "$(check_tls)" in
+    OK)  ok "TLS Port: ${tls_ports}" ;;
+    WARN) warn "TLS: Not running & not listening" ;;
+  esac
+
+  if [[ "$(swap_status)" == "OK" ]]; then
+    ok "Swap: $(swap_line)"
+  else
+    warn "Swap: $(swap_line)"
   fi
 
   [[ "$(check_nginx)" == "OK" ]] && ok "Nginx: active" || warn "Nginx: not active"
