@@ -6,34 +6,51 @@ doragon_diagnose_usage() {
 Usage:
   doragon diagnose <target>
 
-Targets:
-  nginx       Diagnose nginx configuration and TLS usage
-  tls         Diagnose TLS runtime and certificates
-  database    Diagnose database exposure and bindings
-  help        Show this help
+  doragon diagnose nginx
+  doragon diagnose tls
+  doragon diagnose database
+  doragon diagnose sudo
 
 USAGE
 }
 
 doragon_diagnose_cmd() {
-    local target="${1:-}"
-    shift || true
+  local target="${1:-}"
+  shift || true
 
-    case "$target" in
-        nginx)
-            doragon_diagnose_nginx_certs "$@"
-            ;;
-        tls)
-            doragon_diagnose_tls "$@"
-            ;;
-        database|db)
-            doragon_diagnose_database "$@"
-            ;;
-        -h|help|--help|"")
-            doragon_diagnose_usage
-            ;;
-        *)
-         die "[ERR] Unknown diagnose target: $target Run: doragon diagnose --help" >&2
-         ;;
-    esac
+  case "$target" in
+    nginx)
+      doragon_diagnose_nginx_certs "$@"
+      ;;
+    tls)
+      doragon_diagnose_tls "$@"
+      ;;
+    database|db)
+      doragon_diagnose_database "$@"
+      ;;
+    check_permissions|sudo)
+      doragon_diagnose_sudo_permissions "$@"
+      ;;
+    -h|help|--help|"")
+      doragon_diagnose_usage
+      ;;
+    *)
+      die "[ERR] Unknown diagnose target: $target. Run: doragon diagnose --help"
+      ;;
+  esac
+}
+
+
+doragon_diagnose_fix_cmd() {
+  local target="${1:-}"
+  shift || true
+
+  case "$target" in
+    check_permissions|sudo)
+      doragon_fix_check_permissions_sudo "$@"
+      ;;
+    *)
+      die "[ERR] Unknown fix target: $target. Run: doragon fix --help"
+      ;;
+  esac
 }

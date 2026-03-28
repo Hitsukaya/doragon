@@ -17,11 +17,6 @@ Doragon f2b commands:
   doragon f2b set-list <set|jail>             # (debug) show ipset members (auto: f2b-<name>)
   doragon f2b unban-set <set|jail> <IP>       # (debug) remove IP from ipset (auto: f2b-<name>)
 
-  Examples:
-    doragon f2b set-list sshd
-    doragon f2b set-list f2b-sshd
-    doragon f2b unban-set sshd 1.2.3.4
-
 USAGE
 }
 

@@ -19,6 +19,9 @@ DORAGON_F2B_JAILS_DEFAULT=(
   nginx-livewire
   convertor
   nginx-envscan
+  nginx-admin-probe
+  nginx-bad-methods
+  nginx-dotfiles
 )
 
 doragon_f2b_setname_norm() {

@@ -23,6 +23,10 @@ doragon_status() {
   # Audit TLS
   doragon_audit_tls
 
+  # Check Sudo Permmision
+  doragon_check_sudo_permissions
+
+
 IFS='|' read -r security_score score_status exit_code warn_count fail_count \
   < <(doragon_calculate_security_score)
 

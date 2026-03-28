@@ -78,6 +78,9 @@ case "${cmd}" in
   discord)
     doragon_discord_cmd "$@"
     ;;
+  fix)
+    doragon_diagnose_fix_cmd "$@"
+    ;;
   -h|--help|"")
     usage
     exit 0

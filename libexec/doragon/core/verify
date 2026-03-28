@@ -35,7 +35,8 @@ doragon_verify_modules() {
         "$AUDIT" \
         "$F2B" \
         "$SVC" \
-        "$DIAGNOSE"
+        "$DIAGNOSE" \
+	"$SFTP"
     do
         [[ -d "$path" ]] || {
             echo "[ERR] missing module path: $path" >&2

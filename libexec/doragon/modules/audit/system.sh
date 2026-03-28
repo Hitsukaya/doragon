@@ -43,6 +43,22 @@ doragon_audit_system(){
     WARN) warn "TLS: Not running & not listening" ;;
   esac
 
+  case "$(doragon_check_sudo_permissions)" in
+   OK)
+     ok "sudo dir permissions secure"
+     ok "sudo lecture file secure"
+     ;;
+   WARN)
+     [[ "$(stat -c '%a' /var/db/sudo 2>/dev/null)" == "700" ]] \
+       && ok "sudo dir permissions secure" \
+       || warn "sudo dir insecure"
+
+     [[ "$(stat -c '%a' /var/db/sudo/lectured 2>/dev/null)" == "600" ]] \
+       && ok "sudo lecture file secure" \
+       || warn "sudo lecture file insecure"
+     ;;
+  esac
+
   if [[ "$(swap_status)" == "OK" ]]; then
     ok "Swap: $(swap_line)"
   else

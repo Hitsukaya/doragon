@@ -86,8 +86,5 @@ EOF
 doragon_description() {
 cat <<'EOF'
 STABILITY • SIMPLICITY • SECURE BY ARCHITECTURE
-
-Doragon Framework is a lightweight, self-hosted deployment and security platform designed
-for Linux servers, hosting providers, and cloud infrastructure environments.
 EOF
 }

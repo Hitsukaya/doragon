@@ -2,13 +2,69 @@
 
 All notable changes to this project will be documented here.
 
+## Doragon v1.0.9
+
+### Added 
+
+- Introduced diagnose + fix architecture for structured audit and remediation
+- Added fix command system (doragon fix <target>)
+- Implemented permission diagnostics for system-critical paths (sudo directories)
+- Added remediation functions for automatic permission correction
+- Extended SFTP control with improved ACL-based isolation handling
+- Introduced structured issue reporting with actionable fix suggestions
+
+### Changed
+- Refactored CLI routing to support fix command alongside diagnose
+- Improved command dispatching consistency between diagnose and fix layers
+- Enhanced module interaction between audit and remediation components
+- Refined SFTP behavior to avoid unsafe permission escalation patterns
+- Improved internal handling of system checks and validation flow
+
+### Improved
+- More predictable system diagnostics with explicit WARN → FIX flow
+- Cleaner separation between detection (diagnose) and action (fix)
+- Improved runtime stability through better module loading consistency
+- Enhanced security score accuracy and issue visibility
+- Improved output clarity for system audits and recommendations
+
+### Security
+- Improved detection of insecure system permissions (sudo directories)
+- Reduced risk of privilege escalation through better SFTP ACL handling
+- Safer handling of filesystem access boundaries
+- Enhanced visibility of security misconfigurations
+- Strengthened audit-to-remediation workflow
+
+### Internal
+- Extended registry system to support fix command routing
+- Improved loader behavior for nested module structures
+- Reduced dependency issues between core and modules
+- Standardized internal function naming and execution patterns
+- Prepared foundation for automated remediation workflows
+
+### Note
+- This release introduces a major operational improvement:
+  - diagnose → detect → fix
+- Doragon is evolving from a diagnostic tool into a remediation-capable framework.
+
+- This version focuses on:
+  - system predictability 
+  - controlled remediation 
+  - security workflow clarity 
+
+- It prepares the foundation for:
+  - doragon fix all 
+  - automated remediation flows 
+  - policy enforcement layer 
+  - advanced compliance auditing 
+---
+
 ## Doragon v1.0.8
 
 ### Added
 
-- Introduced **bootstrap layer** for clean initialization flow  
-- Added **registry-based CLI routing system**  
-- Implemented **GDPR compliance audit command (`doragon gdpr`)**  
+- Introduced **bootstrap layer** for clean initialization flow
+- Added **registry-based CLI routing system** 
+- Implemented **GDPR compliance audit command (`doragon gdpr`)** 
 - Introduced **dynamic module loading system**
 - Added **directory layout abstraction (`dirs.sh`)**
 
@@ -16,25 +72,25 @@ All notable changes to this project will be documented here.
 
 ### Changed
 
-- Refactored CLI entrypoint (`/usr/bin/doragon`) to be minimal and execution-focused  
-- Migrated command routing logic from monolithic `case` into **registry system**  
+- Refactored CLI entrypoint (`/usr/bin/doragon`) to be minimal and execution-focused 
+- Migrated command routing logic from monolithic `case` into **registry system** 
 - Reorganized internal architecture:
   - `core` → bootstrap + loader + registry
-  - `modules` → feature-based separation  
+  - `modules` → feature-based separation 
 - Improved execution flow:
-  - bootstrap → verify → load → dispatch  
-- Updated internal path handling for better portability  
+  - bootstrap → verify → load → dispatch 
+- Updated internal path handling for better portability 
 - Standardized module loading order (core first, then modules)
 
 ---
 
 ### Improved
 
-- Better modular separation between core and feature modules  
-- Cleaner CLI execution with reduced overhead  
-- More predictable and deterministic execution flow  
-- Improved SFTP security handling (ACL-based control)  
-- Enhanced diagnostics and status output consistency  
+- Better modular separation between core and feature modules 
+- Cleaner CLI execution with reduced overhead 
+- More predictable and deterministic execution flow 
+- Improved SFTP security handling (ACL-based control) 
+- Enhanced diagnostics and status output consistency 
 
 ---
 
@@ -44,8 +100,8 @@ All notable changes to this project will be documented here.
 - Improved detection of:
   - exposed services
   - insecure configurations
-  - public-facing databases  
-- Strengthened SFTP access control logic  
+  - public-facing databases 
+- Strengthened SFTP access control logic 
 
 ---
 
@@ -55,9 +111,9 @@ All notable changes to this project will be documented here.
   - `bootstrap`
   - `loader.sh`
   - `registry`
-- Removed hardcoded module sourcing in favor of dynamic loading  
-- Prepared architecture for future binary compilation  
-- Improved maintainability and extensibility of the framework  
+- Removed hardcoded module sourcing in favor of dynamic loading 
+- Prepared architecture for future binary compilation 
+- Improved maintainability and extensibility of the framework 
 
 ---
 
@@ -67,10 +123,10 @@ This release focuses on **architecture stabilization and modular design**.
 
 It lays the foundation for:
 
-- future binary builds  
-- plugin system expansion  
-- advanced diagnostics (Doragon Doctor)  
-- remote execution capabilities  
+- future binary builds 
+- plugin system expansion 
+- advanced diagnostics (Doragon FIX) 
+- remote execution capabilities 
 
 ---
 
